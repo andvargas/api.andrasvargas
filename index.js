@@ -25,9 +25,9 @@ connection.once('open', () => {
 })
 
 
-const portfolioRouter = require('./routes/projects');
-const usersRouter = require('./routes/users');
-const enquiryRouter = require('./routes/enquiries');
+const portfolioRouter = require('./src/routes/projects');
+const usersRouter = require('./src/routes/users');
+const enquiryRouter = require('./src/routes/enquiries');
 
 app.use('/portfolio-items', portfolioRouter);
 app.use('/users', usersRouter);
