@@ -1,5 +1,3 @@
-// to start the server go to backend and type "nodemon server"
-// refactor this file into an index.js
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,8 +5,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5002;
 
+// const port = process.env.PORT || 5001;
+const port = 5001;
 app.use((req, res, next) => {
     console.log(req.method, req.path)
     next()

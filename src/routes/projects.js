@@ -3,6 +3,7 @@ const auth = require('../middleware/auth')
 const upload = require('../middleware/upload');
 
 let Project = require('../models/portfolio.model');
+const User = require('../models/user.model');
 
 router.route('/').get((req, res) => {
     Project.find()
@@ -14,7 +15,10 @@ router.route('/add').post(auth, upload.single('image'), async(req, res) => {
     const newProject = new Project({ 
         title: req.body.title,
         description: req.body.description,
-        image: req.file.buffer
+        image: req.file.buffer,
+        link: req.body.link,
+        buttonLeft: req.body.buttonLeft,
+        buttonRight: req.body.buttonRight
     });
 
     await newProject.save()
@@ -23,6 +27,21 @@ router.route('/add').post(auth, upload.single('image'), async(req, res) => {
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 });
+
+// Modify project
+router.patch('/mod/:id', async (req, res) => {
+    try {
+        const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true})
+
+        if(!project) {
+            return res.status(404).send()
+        }
+
+        res.send(project)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 
 // serve the image
 router.get('/:id/img', async(req, res) => {
