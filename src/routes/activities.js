@@ -7,7 +7,7 @@ const { MongoClient } = require("mongodb");
 const client = new MongoClient(process.env.NAPLO_URI);
 const timelogsCollection = client.db("naplo").collection("timelogs");
 
-router.get("/", async (req, res) => {
+router.get("/62aae362b24af1027d49c557", async (req, res) => {
   try {
     await client.connect();
     console.log("Just connected to MongoDB Atlas!");
@@ -39,11 +39,11 @@ const main = async () => {
   }
 };
 
-main()
-  .catch((err) => console.log(err))
-  .finally(() => {
-    console.log("connection closed");
-    client.close();
-  });
+// main()
+//   .catch((err) => console.log(err))
+//   .finally(() => {
+//     console.log("connection closed");
+//     client.close();
+//   });
 
 module.exports = router;
