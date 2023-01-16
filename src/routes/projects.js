@@ -7,7 +7,9 @@ const User = require("../models/user.model");
 
 router.route("/").get((req, res) => {
   Project.find()
-    .then((projects) => res.json(projects))
+    .then((projects) => {
+      res.json(projects);
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -49,7 +51,7 @@ router.route("/add").post(
 );
 
 // Modify project - doesnt work
-router.patch("/mod/:id", async (req, res) => {
+/* router.patch("/mod/:id", async (req, res) => {
   try {
     const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
 
@@ -60,6 +62,23 @@ router.patch("/mod/:id", async (req, res) => {
     res.send(project);
   } catch (error) {
     res.status(400).send(error);
+  }
+}); */
+
+// version 2 modify project - I found out that patch request doesn't work with form-data type in request body.
+router.route("/mod/:id").patch(async (req, res) => {
+  try {
+    const project = await Project.findOneAndUpdate(req.params.id, req.body);
+    console.log("project", project);
+
+    if (!project) {
+      return res.status(400).send();
+    }
+
+    res.send(project);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("error");
   }
 });
 
