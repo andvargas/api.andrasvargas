@@ -5,7 +5,7 @@ module.exports = {
       script: "./index.js",
       restart_delay: 4000,
       out_file: "/var/log/pm2/api/out.log",
-      error_file: "/var/log/pm2/api/out.log",
+      error_file: "/var/log/pm2/api/error.log",
     },
   ],
   deploy: {
