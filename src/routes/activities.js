@@ -25,6 +25,25 @@ router.get("/62aae362b24af1027d49c557", async (req, res) => {
   }
 });
 
+//Jim
+router.get("/63c7f6e4827c72029cd230a1", async (req, res) => {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB Atlas!");
+    // list out all the databases in the cluster
+    let result = await timelogsCollection.find({ activityType: "Freelance Paid Job", customer: "James Vaughan" }).toArray();
+    let docCount = await timelogsCollection.countDocuments({ activityType: "Freelance Paid Job", customer: "James Vaughan" });
+    //await result.forEach((doc) => console.log(doc));
+    res.json(result);
+    console.log("found " + docCount);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await client.close();
+    await console.log("connection closed");
+  }
+});
+
 const main = async () => {
   try {
     await client.connect();
