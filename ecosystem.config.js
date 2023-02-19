@@ -15,8 +15,7 @@ module.exports = {
       ref: "origin/main",
       repo: "https://github.com/andvargas/api.andrasvargas.git",
       path: "/var/www/api",
-      "post-setup": "npm install",
-      "post-deploy": "pm2 startOrRestart ecosystem.config.js --env production",
+      "post-deploy": "npm install",
     },
   },
 };
