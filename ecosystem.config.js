@@ -14,7 +14,7 @@ module.exports = {
       host: ["31.24.230.163"],
       ref: "origin/main",
       repo: "https://github.com/andvargas/api.andrasvargas.git",
-      path: "/var/www/api/current",
+      path: "/var/www/api",
       "post-deploy": "npm install",
     },
   },
