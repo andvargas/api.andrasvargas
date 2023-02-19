@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "api",
       script: "./index.js",
-      restart_delay: 4000,
+      restart_delay: 1000,
       out_file: "/var/log/pm2/api/out.log",
       error_file: "/var/log/pm2/api/error.log",
     },
