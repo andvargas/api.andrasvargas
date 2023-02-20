@@ -2,19 +2,21 @@ module.exports = {
   apps: [
     {
       name: "api",
-      script: "./index.js",
-      restart_delay: 1000,
+      script: "index.js",
       out_file: "/var/log/pm2/api/out.log",
       error_file: "/var/log/pm2/api/error.log",
+    },
+    {
+      script: "worker.js",
     },
   ],
   deploy: {
     production: {
-      user: "andras",
-      host: ["31.24.230.163"],
+      user: "ubuntu",
+      host: ["18.130.87.164"],
       ref: "origin/main",
       repo: "https://github.com/andvargas/api.andrasvargas.git",
-      path: "/var/www/api/source",
+      path: "/var/www/api",
       "post-deploy": "npm install",
     },
   },
