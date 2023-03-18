@@ -12,8 +12,8 @@ module.exports = {
   ],
   deploy: {
     production: {
-      key: "/home/ubuntu/.ssh/id_rsa.pub",
-      user: "ubuntu",
+      key: "/home/andras/.ssh/id_rsa.pub",
+      user: "andras",
       host: ["18.130.87.164"],
       ref: "origin/main",
       repo: "https://github.com/andvargas/api.andrasvargas.git",
