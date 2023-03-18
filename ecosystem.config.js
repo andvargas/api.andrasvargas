@@ -14,7 +14,7 @@ module.exports = {
     production: {
       key: "/home/andras/.ssh/id_ed25519",
       user: "andras",
-      host: ["18.130.87.164"],
+      host: ["31.24.230.163"],
       ref: "origin/main",
       repo: "https://github.com/andvargas/api.andrasvargas.git",
       path: "/var/www/api.andrasvargas",
