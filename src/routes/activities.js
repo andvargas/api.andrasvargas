@@ -7,6 +7,7 @@ const { MongoClient } = require("mongodb");
 const client = new MongoClient(process.env.NAPLO_URI);
 const timelogsCollection = client.db("naplo").collection("timelogs");
 
+// Colyer hardcoded
 router.get("/62aae362b24af1027d49c557", async (req, res) => {
   try {
     await client.connect();
