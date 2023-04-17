@@ -13,6 +13,7 @@ module.exports = {
   ],
   deploy: {
     production: {
+      key: "~/.ssh/andrasvargas.pem",
       user: "ubuntu",
       host: ["18.130.87.164"],
       ref: "origin/main",
