@@ -16,11 +16,12 @@ app.use(cors());
 app.use(express.json({ limit: "25mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "25mb" }));
 
+mongoose.set("strictQuery", false);
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   autoIndex: true,
 });
-mongoose.set("strictQuery", false);
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
