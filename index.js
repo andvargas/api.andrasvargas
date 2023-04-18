@@ -20,7 +20,7 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   autoIndex: true,
 });
-mongoose.set("strictQuery", true);
+mongoose.set("strictQuery", false);
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");

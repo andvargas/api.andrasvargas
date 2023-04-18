@@ -7,9 +7,6 @@ module.exports = {
       out_file: "/var/log/pm2/api/out.log",
       error_file: "/var/log/pm2/api/error.log",
     },
-    {
-      script: "worker.js",
-    },
   ],
   deploy: {
     production: {
