@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+console.log(process.env.TEST);
 const mongoose = require("mongoose"); // remove .set("debug", true) when fixed
 
 const app = express();

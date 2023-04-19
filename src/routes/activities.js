@@ -4,7 +4,7 @@ const router = express();
 const auth = require("../middleware/auth");
 const { MongoClient } = require("mongodb");
 
-const client = new MongoClient(process.env.NAPLO_URI);
+const client = new MongoClient(process.env.NAPLO_URI, { useNewUrlParser: true });
 const timelogsCollection = client.db("naplo").collection("timelogs");
 
 // Colyer hardcoded
