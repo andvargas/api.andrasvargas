@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-console.log(process.env.TEST);
 const mongoose = require("mongoose"); // remove .set("debug", true) when fixed
 
 const app = express();
@@ -33,12 +32,14 @@ const usersRouter = require("./src/routes/users");
 const enquiryRouter = require("./src/routes/enquiries");
 const contentRouter = require("./src/routes/content");
 const activityRouter = require("./src/routes/activities");
+const chatbotRouter = require("./src/routes/chatbotRoute");
 
 app.use("/portfolio-items", portfolioRouter);
 app.use("/users", usersRouter);
 app.use("/enquiries", enquiryRouter);
 app.use("/content", contentRouter);
 app.use("/activities", activityRouter);
+app.use("/chatgpt", chatbotRouter); // Use the new chatbot route
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
