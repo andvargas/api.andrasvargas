@@ -11,15 +11,8 @@ app.use((req, res, next) => {
   console.log(req.method, req.path);
   next();
 });
-// modify the CORS configuration to include my chat implementation
-const corsOptions = {
-  origin: "*",
-  methods: "GET, POST, PUT, DELETE, OPTIONS",
-  allowedHeaders: "Content-Type, Authorization",
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json({ limit: "25mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "25mb" }));

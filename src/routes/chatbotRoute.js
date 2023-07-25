@@ -1,5 +1,6 @@
 const express = require("express");
 const { Configuration, OpenAIApi } = require("openai");
+const Conversation = require("./../models/chat.model");
 
 const router = express.Router();
 
@@ -10,7 +11,16 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 router.post("/", async (req, res) => {
-  const { chats } = req.body;
+  const { sessionId, chats } = req.body;
+
+  // Fetch the latest conversation from the database (if any)
+  let latestConversation;
+  try {
+    latestConversation = await Conversation.findOne({ sessionId }).sort({ createdAt: -1 });
+  } catch (err) {
+    console.error("Error fetching latest conversation from the database:", err);
+    latestConversation = null;
+  }
 
   const result = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -22,36 +32,27 @@ router.post("/", async (req, res) => {
       ...chats,
     ],
   });
-  // Create the chat session ID
-  const sessionId = new Date();
-  console.log("sessionId: ", sessionId);
 
-  // Save the conversation to your database
-  // console.log("save conversation: ", chats);
+  // Extract the assistant's reply from the OpenAI API response
+  const assistantReply = result.data.choices[0].message;
+
+  // If a conversation exists for the session, update it with the new messages
+  if (latestConversation) {
+    latestConversation.chats = [...chats, assistantReply];
+  } else {
+    // If no conversation exists for the session, create a new one and save it
+    latestConversation = new Conversation({ sessionId, chats });
+  }
+
+  try {
+    await latestConversation.save();
+  } catch (err) {
+    console.error("Error updating conversation in the database:", err);
+  }
 
   res.json({
-    output: result.data.choices[0].message,
+    output: assistantReply,
   });
 });
-
-// Create route for saving conversations.
-// router.post("/chat", (req, res) => {
-//   const { sessionId, messages } = req.body;
-
-//   // Save chat messages to database - This should be changed as per the last recent ChatGPT instructions (continue from here, see instructions below!)
-//   const chat = new Chat({
-//     sessionId,
-//     messages,
-//   });
-//   chat
-//     .save()
-//     .then(() => {
-//       res.status(200).send("Chat saved successfully.");
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).send("Error saving chat to database.");
-//     });
-// });
 
 module.exports = router;
